@@ -1,2 +1,2 @@
-# Ultimate_hacking_tools
-OP tools for hackers
+All scripts from this folder were created by OckoTajny and Dandulblack.
+Please note that we do not take any responsibility for the use, modification, or any potential consequences resulting from these scripts. Use them at your own risk.
