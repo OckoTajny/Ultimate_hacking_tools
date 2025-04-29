@@ -16,6 +16,7 @@ ____  ____   ___  ____       _  _____ _____  _    ____ _  __
 | |_| | |_| | |_| |___) |  / ___ \| |   | |/ ___ \ |___| . \ 
 |____/|____/ \___/|____/  /_/   \_\_|   |_/_/   \_\____|_|\_\
 """)
+
 url = input(green + "Enter the URL to attack: ")
 method = input(green + "Enter the HTTP method (GET/POST/FETCH): ").upper()
 total_requests = int(input(green + "Enter the total number of requests to send: "))
