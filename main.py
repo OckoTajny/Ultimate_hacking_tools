@@ -29,7 +29,7 @@ print(green + """
 while True:
     a = input(magenta + "Choose a number: ")
     if a == "1":
-        os.system("ddos.py")
+        os.system("python ddos.py")
     else:
         print(red + f"{a} is not a valid number.")
         continue
