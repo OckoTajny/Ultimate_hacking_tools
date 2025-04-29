@@ -26,6 +26,7 @@ def get_inputs():
     input(green + "Are you sure you want to attack this URL? (Press Enter to continue)")
     os.system("cls" if os.name == "nt" else "clear")
     if num_threads >= os.cpu_count():
+        print(red + f"You cant select more threads than available CPUs, automatically selecting all {os.cpu_count()} CPUs.")
         num_threads = os.cpu_count()
     if num_threads >= total_requests:
         print(red + "You have selected more threads than total requests.")
