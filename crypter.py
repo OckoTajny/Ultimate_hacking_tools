@@ -15,5 +15,27 @@ print(green + """
 | \__/\| |   | |_| || |_) || |_ |  __/| |   
  \____/|_|    \__, || .__/  \__| \___||_|   
                __/ || |                     
-              |___/ |_|                     
+              |___/ |_|      
+                     
 """)
+
+ascii_text = "placeholder"
+converted_bits = "placeholder"
+converted_key = "placeholder"
+ascii_key = "placeholder"
+
+def get_inputs():
+    ascii_text = input(green + "Enter the text you want to encrypt: ")
+    converted_text = ''.join(format(ord(i), '08b') for i in ascii_text)
+    ascii_key = input(green + "Enter the key: ")
+    converted_key = ''.join(format(ord(i), '08b') for i in ascii_key)
+    print(green + f"Binary: {converted_key}")
+    print(green + f"Key: {converted_key}")
+
+def crypt(text, key):
+
+def main():
+    get_inputs()
+
+if __name__ == "__main__":
+    main()
