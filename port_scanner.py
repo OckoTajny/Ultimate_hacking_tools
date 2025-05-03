@@ -32,11 +32,12 @@ def get_inputs():
         ip = socket.gethostbyname(domain)
         print(blue + f"IP adress of {domain} is {ip}")
     try:
-        ports = int(input(yellow + "How many ports do you want to scan (max is 65535): "))
+        ports = int(input(yellow + "How many ports do you want to scan (max is 65535): ")) + 1
+        timeout = int(input(yellow + "Enter timeout in miliseconds (for ethernet i recommend 100ms): ")) / 1000
         if ports <= 65535 and ports > 0:
             print(green + f"Scanning {ip} for active ports, this may take a while...")
             for port in range(1, ports):
-                result = search(ip, port)
+                result = search(ip, port, timeout)
                 if result == "Active":
                     results = results + blue + str(port) + ":" + green + result + "\n"
                 elif result == "Closed":
@@ -48,14 +49,14 @@ def get_inputs():
             time.sleep(3)
             get_inputs()
     except ValueError:
-        print(red + "Error, port must be a number.")
+        print(red + "Error, port and timeout must be a number.")
         time.sleep(3)
         get_inputs()
 
 #Test if port is active or not
-def search(ip, port):
+def search(ip, port, timeout):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.settimeout(0.5)
+        s.settimeout(timeout)
         result = s.connect_ex((ip, port))
     if result == 0:
         return "Active"
