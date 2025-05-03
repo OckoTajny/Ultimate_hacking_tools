@@ -25,11 +25,14 @@ print(magenta + """
  \__\___/ \___/|_|___/                 
 """)
 print(green + """
-1. DDOS attack""")
+1. DDOS attack
+2. Password generator""")
 while True:
     a = input(magenta + "Choose a number: ")
     if a == "1":
         os.system("python ddos.py")
+    elif a == "2":
+        os.system("python random_password.py")
     else:
         print(red + f"{a} is not a valid number.")
         continue
