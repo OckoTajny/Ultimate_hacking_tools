@@ -7,7 +7,7 @@ red = colorama.Fore.RED
 magenta = colorama.Fore.MAGENTA
 
 os.system("cls" if os.name == "nt" else "clear")
-print(green + """
+print(green + r"""
  _____                      _               
 /  __ \                    | |              
 | /  \/ _ __  _   _  _ __  | |_   ___  _ __ 

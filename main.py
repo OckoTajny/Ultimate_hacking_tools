@@ -9,7 +9,7 @@ magenta = colorama.Fore.MAGENTA
 cyan = colorama.Fore.CYAN
 white = colorama.Fore.WHITE
 
-print(magenta + """
+print(magenta + r"""
  _   _ _ _   _                 _       
 | | | | | |_(_)_ __ ___   __ _| |_ ___ 
 | | | | | __| | '_ ` _ \ / _` | __/ _ \
