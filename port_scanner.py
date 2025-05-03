@@ -1,6 +1,4 @@
 #imports
-from idlelib.run import quitting
-
 import colorama
 import socket
 import time
@@ -28,12 +26,12 @@ def get_inputs():
 |  __/ (_) | |  | |_  \__ \ (_| (_| | | | | | | |  __/ |   
 |_|   \___/|_|   \__| |___/\___\__,_|_| |_|_| |_|\___|_|   """)
     ip = input(yellow + "Enter ip you want to scan, if you know only the domain name, type domain: ")
+    results = ""
     if ip == "domain":
         domain = input(yellow + "Enter domain name: ")
         ip = socket.gethostbyname(domain)
         print(blue + f"IP adress of {domain} is {ip}")
     try:
-        results = ""
         ports = int(input(yellow + "How many ports do you want to scan (max is 65535): "))
         if ports <= 65535 and ports > 0:
             s.settimeout(1)
@@ -43,8 +41,6 @@ def get_inputs():
                 if result == "Active":
                     results = results + blue + str(port) + ":" + green + result + "\n"
                 elif result == "Closed":
-                    results = results + blue + str(port) + ":" + yellow + result + "\n"
-                elif result == "Error":
                     results = results + blue + str(port) + ":" + red + result + "\n"
                 continue
             print_results(results)
@@ -63,10 +59,8 @@ def search(ip, port):
     s.close()
     if result == 0:
         result = "Active"
-    elif result == 111:
-        result = "Closed"
     else:
-        result = "Error"
+        result = "Closed"
     return result
 
 #print results
