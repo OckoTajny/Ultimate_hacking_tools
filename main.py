@@ -26,13 +26,16 @@ print(magenta + r"""
 """)
 print(green + """
 1. DDOS attack
-2. Password generator""")
+2. Password generator
+3. Port scanner""")
 while True:
     a = input(magenta + "Choose a number: ")
     if a == "1":
         os.system("python ddos.py")
     elif a == "2":
         os.system("python random_password.py")
+    elif a == "3":
+        os.system("python port_scanner.py")
     else:
         print(red + f"{a} is not a valid number.")
         continue

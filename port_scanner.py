@@ -4,6 +4,7 @@ import socket
 import time
 import os
 import multiprocessing
+from concurrent.futures import ThreadPoolExecutor
 
 #variables setup
 green = colorama.Fore.GREEN
@@ -13,13 +14,12 @@ blue = colorama.Fore.BLUE
 magenta = colorama.Fore.MAGENTA
 cyan = colorama.Fore.CYAN
 white = colorama.Fore.WHITE
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
-#getting imports
+#getting inputs
 def get_inputs():
     os.system("cls" if os.name == "nt" else "clear")
-    print(green + r"""
+    print(magenta + r"""
  ____            _                                         
 |  _ \ ___  _ __| |_   ___  ___ __ _ _ __  _ __   ___ _ __ 
 | |_) / _ \| '__| __| / __|/ __/ _` | '_ \| '_ \ / _ \ '__|
@@ -34,7 +34,6 @@ def get_inputs():
     try:
         ports = int(input(yellow + "How many ports do you want to scan (max is 65535): "))
         if ports <= 65535 and ports > 0:
-            s.settimeout(1)
             print(green + f"Scanning {ip} for active ports, this may take a while...")
             for port in range(1, ports):
                 result = search(ip, port)
@@ -55,22 +54,31 @@ def get_inputs():
 
 #Test if port is active or not
 def search(ip, port):
-    result = s.connect_ex((ip, port))
-    s.close()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(0.5)
+        result = s.connect_ex((ip, port))
     if result == 0:
-        result = "Active"
+        return "Active"
     else:
-        result = "Closed"
-    return result
+        return "Closed"
 
 #print results
 def print_results(results):
     print(blue + results)
-    a = input(yellow + "Do you want to start another scan? (y/n): ")
+    a = input(yellow + "Do you want to filter only active ports? (y/n):")
     if a.lower() == "y":
+        print(green + "OK, I'll start filtering the results, if I don't print anything it means there are no active ports on the provided IP")
+        for line in results.splitlines():
+            if "Active" in line:
+                print(line)
+            else:
+                continue
+    b = input(yellow + "Do you want to start another scan? (y/n): ")
+    if b.lower() == "y":
         get_inputs()
     else:
         print(red + "OK, quitting")
         time.sleep(2)
+        quit()
 
 get_inputs()
