@@ -74,6 +74,10 @@ def print_results(results):
                 print(line)
             else:
                 continue
+    c = input(yellow + "Do you want to save the results into a file? (y/n):")
+    if c.lower() == "y":
+        with open("port_scan_results.txt", "w") as f:
+            f.write(results)
     b = input(yellow + "Do you want to start another scan? (y/n): ")
     if b.lower() == "y":
         get_inputs()

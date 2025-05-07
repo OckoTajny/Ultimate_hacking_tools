@@ -27,7 +27,8 @@ print(magenta + r"""
 print(green + """
 1. DDOS attack
 2. Password generator
-3. Port scanner""")
+3. Port scanner
+4. All kinds of cyphers""")
 while True:
     a = input(magenta + "Choose a number: ")
     if a == "1":
@@ -36,6 +37,8 @@ while True:
         os.system("python random_password.py")
     elif a == "3":
         os.system("python port_scanner.py")
+    elif a == "4":
+        os.system("python Cyphers.py")
     else:
         print(red + f"{a} is not a valid number.")
         continue
