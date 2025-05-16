@@ -30,6 +30,7 @@ def py_install():
     return
 
 def get_inputs():
+    os.system("cls" if os.name == "nt" else "clear")
     print(magenta + r""" __  __           _       _                              
 |  \/  | ___   __| |_   _| | ___  ___                    
 | |\/| |/ _ \ / _` | | | | |/ _ \/ __|                   
