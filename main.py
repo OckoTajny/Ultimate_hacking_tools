@@ -28,7 +28,8 @@ print(green + """
 1. DDOS attack
 2. Password generator
 3. Port scanner
-4. All kinds of cyphers""")
+4. All kinds of cyphers
+5. Ultimate downloader""")
 while True:
     a = input(magenta + "Choose a number: ")
     if a == "1":
@@ -39,6 +40,8 @@ while True:
         os.system("python port_scanner.py")
     elif a == "4":
         os.system("python Cyphers.py")
+    elif a == "5":
+        os.system("python downloader.py")
     else:
         print(red + f"{a} is not a valid number.")
         continue
