@@ -1,5 +1,7 @@
 import os
 import colorama
+from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
+
 
 green = colorama.Fore.GREEN
 red = colorama.Fore.RED
@@ -23,3 +25,10 @@ print(magenta + r""" ___           _
 | |\/| |/ _` | |/ / _ \ '__|                      
 | |  | | (_| |   <  __/ |                         
 |_|  |_|\__,_|_|\_\___|_|                         """)
+
+def edit_video(video_path, text):
+    video = VideoFileClip(video_path)
+    txt_clip = TextClip(text, fontsize=70, color='white')
+    txt_clip = txt_clip.set_position('center').set_duration(video.duration)
+    vysledek = CompositeVideoClip([video, txt_clip])
+    vysledek.write_videofile("vystupni_video.mp4")
