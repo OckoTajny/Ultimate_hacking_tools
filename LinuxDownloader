@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if ! command -v python3 &> /dev/null
+then
+    echo "Python3 is not installed. Installing..."
+    sudo apt-get update
+    sudo apt-get install -y python3
+    echo "Python3 has been installed. Please re-run this script."
+    exit 1
+else
+    echo "Python3 is already installed."
+fi
+
+python3 modules_downloader.py
