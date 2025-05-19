@@ -33,9 +33,12 @@ def get_inputs():
     print(green + f"Key: {converted_key}")
 
 def crypt(text, key):
+    # Placeholder implementation for the crypt function
+    pass
 
 def main():
     get_inputs()
+    print("L")
 
 if __name__ == "__main__":
     main()
